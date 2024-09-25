@@ -8,9 +8,6 @@ const {
   getAllUniqueItems 
 } = require('../controller/vendorController');
 
-
-
-// Vendor registration route with multiple file uploads
 router.post('/vendor-registration', 
   multer.fields([
     { name: 'add_proof_att', maxCount: 1 },
@@ -21,10 +18,10 @@ router.post('/vendor-registration',
   registerVendor
 );
 
-// Route to get vendors by item title
+
 router.get('/vendors-by-item-title/:title', getVendorsByItemTitle);
 
-// API to get a list of all unique items (without duplicates)
+
 router.get('/get-all-items', getAllUniqueItems);
 router.get('/vendor-details-by-email/:email', getVendorByEmail);
 module.exports = router;
