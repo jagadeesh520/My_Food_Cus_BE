@@ -1,11 +1,9 @@
 const Vendor = require('../models/vendor-registration');
 const path = require('path');
 
-// Vendor registration function
 const registerVendor = async (req, res) => {
   try {
-    // Check if vendor already exists based on email or contact number
-
+  
     const existingVendor = await Vendor.findOne({
       $or: [{ 'personalData.email': req.body.email }, { 'personalData.contact_no': req.body.contact_no }],
     });
@@ -96,18 +94,16 @@ const getVendorsByItemTitle = async (req, res) => {
   }
 };
 
-// Function to get all unique items (without duplicates)
 const getAllUniqueItems = async (req, res) => {
   try {
-    // Find all vendors and extract unique item titles with their respective images
+    
     const vendors = await Vendor.find();
 
     const uniqueItems = [];
-    const itemSet = new Set(); // To track unique item titles
-
+    const itemSet = new Set(); 
     vendors.forEach(vendor => {
       vendor.items.forEach(item => {
-        const titleLower = item.title.toLowerCase(); // Normalize titles to avoid case-sensitive duplicates
+        const titleLower = item.title.toLowerCase(); 
 
         if (!itemSet.has(titleLower)) {
           uniqueItems.push({
@@ -116,7 +112,7 @@ const getAllUniqueItems = async (req, res) => {
             cost: item.cost,
           });
 
-          itemSet.add(titleLower); // Mark this item as seen
+          itemSet.add(titleLower); 
 
         }
       });

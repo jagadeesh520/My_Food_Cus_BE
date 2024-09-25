@@ -19,10 +19,9 @@ router.post('/vendor-registration',
   registerVendor
 );
 
-// Route to get vendors by item title
+
 router.get('/vendors-by-item-title/:title', getVendorsByItemTitle);
 
-// API to get a list of all unique items (without duplicates)
 
 router.get('/get-all-items', getAllUniqueItems);
 router.get('/vendor-details-by-email/:email', getVendorByEmail);
