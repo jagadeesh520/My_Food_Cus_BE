@@ -1,16 +1,11 @@
 const Vendor = require('../models/vendor-registration');
 const path = require('path');
 
-<<<<<<< HEAD
 // Vendor registration function
 const registerVendor = async (req, res) => {
   try {
     // Check if vendor already exists based on email or contact number
-=======
-const registerVendor = async (req, res) => {
-  try {
-   
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
+
     const existingVendor = await Vendor.findOne({
       $or: [{ 'personalData.email': req.body.email }, { 'personalData.contact_no': req.body.contact_no }],
     });
@@ -19,10 +14,6 @@ const registerVendor = async (req, res) => {
       return res.status(400).send('Vendor with the same email or contact number already exists!');
     }
 
-<<<<<<< HEAD
-    // Capture personal data from request body
-=======
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
     const personalData = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
@@ -31,10 +22,6 @@ const registerVendor = async (req, res) => {
       alt_contact_no: req.body.alt_contact_no,
     };
 
-<<<<<<< HEAD
-    // Capture address data from request body
-=======
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
     const addressData = {
       house_no: req.body.house_no,
       street_name: req.body.street_name,
@@ -47,10 +34,6 @@ const registerVendor = async (req, res) => {
       add_proof_att: req.files['add_proof_att'] ? req.files['add_proof_att'][0].filename : null,
     };
 
-<<<<<<< HEAD
-    // Handle uploaded items data with image filenames
-=======
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
     const itemsData = [];
     if (req.body.items) {
       itemsData.push(
@@ -62,20 +45,12 @@ const registerVendor = async (req, res) => {
       );
     }
 
-<<<<<<< HEAD
-    // Combine all vendor data
-=======
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
     const vendorData = {
       personalData,
       addressData,
       items: itemsData,
     };
 
-<<<<<<< HEAD
-    // Save vendor data to the database
-=======
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
     const vendor = new Vendor(vendorData);
     await vendor.save();
     res.status(201).send('Vendor data successfully saved!');
@@ -121,7 +96,6 @@ const getVendorsByItemTitle = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 // Function to get all unique items (without duplicates)
 const getAllUniqueItems = async (req, res) => {
   try {
@@ -134,30 +108,16 @@ const getAllUniqueItems = async (req, res) => {
     vendors.forEach(vendor => {
       vendor.items.forEach(item => {
         const titleLower = item.title.toLowerCase(); // Normalize titles to avoid case-sensitive duplicates
-=======
-const getAllUniqueItems = async (req, res) => {
-  try {
-   
-    const vendors = await Vendor.find();
 
-    const uniqueItems = [];
-    const itemSet = new Set(); 
-
-    vendors.forEach(vendor => {
-      vendor.items.forEach(item => {
-        const titleLower = item.title.toLowerCase(); 
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
         if (!itemSet.has(titleLower)) {
           uniqueItems.push({
             title: item.title,
             image: item.image ? `${req.protocol}://${req.get('host')}/uploads/${item.image}` : null,
             cost: item.cost,
           });
-<<<<<<< HEAD
+
           itemSet.add(titleLower); // Mark this item as seen
-=======
-          itemSet.add(titleLower); 
->>>>>>> 25ba9e07af5f71ce79c898d0af5518d05a6d5b8f
+
         }
       });
     });
